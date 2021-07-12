@@ -78,17 +78,17 @@ int	get_next_line(int fd, char **line)
 		while (ret[0] == NO_EOL)
 		{
 			ret[1] = read(fd, temp, BUFFER_SIZE);
-			if (buff[fd] == NULL && (ret[1] >= 0)
-				&& (!(temp[ret[1]] = '\0'))) 
+			temp[ret[1]] = '\0';
+			if (buff[fd] == NULL && (ret[1] >= 0) && (temp[ret[1]] == 0)) 
 				buff[fd] = ft_strdup(temp);
 			if (buff[fd] != NULL)
 				ret[1] = ft_strlen(buff[fd]);
-			if (ret[1] < 0)
-				break ;
 			ret[0] = ft_buff2line(&*line, &buff[fd]);
-			if (ret[1] == 0)	return (0);
+			if (ret[1] == 0)
+				return (0);
 		}
-		if (ret[0] == FOUND_EOL)	return (1);
+		if (ret[0] == FOUND_EOL)
+			return (1);
 	}
 	ft_free(&*line);
 	return (-1);
