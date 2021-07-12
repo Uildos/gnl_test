@@ -79,7 +79,7 @@ int	get_next_line(int fd, char **line)
 		{
 			ret[1] = read(fd, temp, BUFFER_SIZE);
 			temp[ret[1]] = '\0';
-			if (buff[fd] == NULL && (ret[1] >= 0) && (temp[ret[1]] == 0)) 
+			if (buff[fd] == NULL && (ret[1] >= 0) && (temp[ret[1]] == 0))
 				buff[fd] = ft_strdup(temp);
 			if (buff[fd] != NULL)
 				ret[1] = ft_strlen(buff[fd]);
