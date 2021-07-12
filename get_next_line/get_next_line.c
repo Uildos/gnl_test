@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-static void		ft_free(char **ptr)
+static void	ft_free(char **ptr)
 {
 	if (!ptr || !*ptr)
 		return ;
@@ -20,7 +20,7 @@ static void		ft_free(char **ptr)
 	*ptr = NULL;
 }
 
-static void		ft_left(char **buff, long long j)
+static void	ft_left(char **buff, long long j)
 {
 	long long	i;
 	char		temp[ARG_MAX];
@@ -38,7 +38,7 @@ static void		ft_left(char **buff, long long j)
 	}
 }
 
-static int		ft_buff2line(char **line, char **buff)
+static int	ft_buff2line(char **line, char **buff)
 {
 	long long	i;
 	long long	j;
@@ -65,18 +65,20 @@ static int		ft_buff2line(char **line, char **buff)
 	return (NO_EOL);
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*buff[OPEN_MAX];
 	char		temp[ARG_MAX];
 	int			ret[2];
 
-	if (fd >= 0 && line && BUFFER_SIZE > 0 && (*line = ft_strdup("")))
+	*line = ft_strdup("");
+	if (fd >= 0 && line && BUFFER_SIZE > 0 && (*line))
 	{
 		ret[0] = NO_EOL;
 		while (ret[0] == NO_EOL)
 		{
-			if (buff[fd] == NULL && (ret[1] = read(fd, temp, BUFFER_SIZE)) >= 0
+			ret[1] = read(fd, temp, BUFFER_SIZE);
+			if (buff[fd] == NULL && (ret[1] >= 0)
 				&& (temp[ret[1]] = '\0') == 0)
 				buff[fd] = ft_strdup(temp);
 			if (buff[fd] != NULL)
